@@ -5,22 +5,9 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame
 {
-    public Main() {
-
-        add(new Board());
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(280, 240);
-        setLocationRelativeTo(null);
-        setTitle("Star");
-        setResizable(false);
-        setVisible(true);
-
-    }
     
     public static void main(String[] args) throws UnknownHostException
     {
-        Main main = new Main();
 //        // generirane na proizvolen broi klienti
         Random rand = new Random();
         int clients = rand.nextInt(40);
