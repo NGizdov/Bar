@@ -1,3 +1,6 @@
 */bin/
 Bar-Server/bin/
 Bar-Client/bin/
+*/.classpath
+Bar-Client/.classpath
+Bar-Server/.classpath
