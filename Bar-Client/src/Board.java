@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ public class Board extends JPanel implements Runnable
     private Image star;
     private Thread animator;
     private int x, y;
+    LinkedList<ImageIcon> clients;
 
     private final int DELAY = 50;
 
@@ -20,11 +22,11 @@ public class Board extends JPanel implements Runnable
     {
         setBackground(Color.WHITE);
         setDoubleBuffered(true);
+        clients = new LinkedList<ImageIcon>();
+//        ImageIcon ii = new ImageIcon(this.getClass().getResource("smoker.png"));
+//        star = ii.getImage();
 
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("smoker.png"));
-        star = ii.getImage();
-
-        x = y = 10;
+//        x = y = 10;
     }
 
     public void addNotify()
@@ -87,4 +89,5 @@ public class Board extends JPanel implements Runnable
             beforeTime = System.currentTimeMillis();
         }
     }
+    
 }

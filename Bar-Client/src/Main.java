@@ -5,9 +5,10 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame
 {
+    Board board;
     public Main() {
-
-        add(new Board());
+        board = new Board();
+        add(board);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(680, 640);
@@ -25,7 +26,6 @@ public class Main extends JFrame
 //        // generirane na proizvolen broi klienti
         Random rand = new Random();
         int clients = rand.nextInt(40);
-//
         for (int i = 0; i < clients; i++)
         {
             Client cl = new Client(((rand.nextInt(50) % 2 == 0) ? "smoker" : "noSmoker"));
