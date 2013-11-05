@@ -26,10 +26,14 @@ public class Main
         int clients = rand.nextInt(40);
         for (int i = 0; i < clients; i++)
         {
-            Client cl = new Client(((rand.nextInt(50) % 2 == 0) ? "smoker" : "noSmoker"), rand.nextInt(10) * 50, dim);
+            Client cl = null;
+            if(args.length >= 2){
+                cl = new Client(((rand.nextInt(50) % 2 == 0) ? "smoker" : "noSmoker"), rand.nextInt(10) * 50, dim, args[0], Integer.parseInt(args[1]));
+            } else {
+                cl = new Client(((rand.nextInt(50) % 2 == 0) ? "smoker" : "noSmoker"), rand.nextInt(10) * 50, dim);
+            }
             board.addClient(cl);
             cl.start();
         }
     }
-
 }

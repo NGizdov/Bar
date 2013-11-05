@@ -1,3 +1,4 @@
+package com.nedelin.gizdov;
 import java.io.*;
 import java.net.Socket;
 
@@ -5,7 +6,7 @@ public class Client extends Thread
 {
     public static final String ENTER = "enter";
     public static final String EXIT = "exit";
-    private static final int SLEEP_COEF = 5000;
+    private static final int SLEEP_COEF = 10000;
 
     private String smoker;
     private PrintWriter exit;

@@ -20,7 +20,7 @@ public class Client extends Thread
     private final String smoker;
     private PrintWriter send;
     private BufferedReader comeback;
-    private static final String LOCAL_HOST = "localhost";
+    private static final String DEFAULT_HOST = "localhost";
     private static final int PORT = 6060;
     private static final String ENTER_EXTENSION = ".png";
     private static final String EXIT_EXTENSION = "Mirror.png";
@@ -31,28 +31,30 @@ public class Client extends Thread
     private ImageIcon image;
     private Dimension board;
     private int delay;
+    private boolean finished;
 
     public Client(String smoker, int delay, Dimension board)
     {
-        this(smoker, delay, board, LOCAL_HOST, PORT);
+        this(smoker, delay, board, DEFAULT_HOST, PORT);
     }
     
     public Client(String smoker, int delay, Dimension board, String host, int port)
     {
+        this.finished = false;
         this.delay = delay;
         num++;
         this.name = "Client - " + num;
         this.smoker = smoker;
-        this.image = new ImageIcon("/home/bitmix/workspace/Bar/Bar-Client/resources/" + this.smoker + ENTER_EXTENSION);
+        this.image = new ImageIcon(getClass().getClassLoader().getResource(this.smoker + ENTER_EXTENSION));
         InetAddress hostAdress = null;
         Socket socket = null;
         varX = 20;
         varY = 20;
         this.board = board;
-        y = 100;
+        y = 300;
         if ("smoker".equalsIgnoreCase(this.smoker))
         {
-            y = 300;
+            y = 400;
         }
         try
         {
@@ -80,8 +82,9 @@ public class Client extends Thread
             System.out.println(this + " is entering BAR.");
             
             send.println("Enter");
+            enterBar();
             comeback.readLine();
-            this.image = new ImageIcon("/home/bitmix/workspace/Bar/Bar-Client/resources/" + this.smoker + EXIT_EXTENSION);
+            this.image = new ImageIcon(getClass().getClassLoader().getResource(this.smoker + EXIT_EXTENSION));
             walkFromBar();
             System.out.println(this + " is exiting BAR.");
         }
@@ -103,9 +106,24 @@ public class Client extends Thread
         }
     }
 
+    private void enterBar()
+    {
+        while (x <= (this.board.getWidth() - 150)){
+            x += varX;
+            try
+            {
+                sleep((long) delay);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void walkToBar()
     {
-        while (x <= (this.board.getWidth() - 90)){
+        while (x <= (this.board.getWidth() - 340)){
             x += varX;
             try
             {
@@ -132,6 +150,7 @@ public class Client extends Thread
                 e.printStackTrace();
             }
         }
+        this.finished = true;
     }
 
     @Override
@@ -193,5 +212,15 @@ public class Client extends Thread
     public void setImage(ImageIcon image)
     {
         this.image = image;
+    }
+
+    public boolean isFinished()
+    {
+        return finished;
+    }
+
+    public void setFinished(boolean finished)
+    {
+        this.finished = finished;
     }
 }

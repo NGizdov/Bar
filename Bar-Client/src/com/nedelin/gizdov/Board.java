@@ -33,8 +33,6 @@ public class Board extends JPanel implements ActionListener
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                JFrame fr = new JFrame();
-                fr.setSize(680, 640);
                 Client client = new Client("smoker", RANDOM.nextInt(10) * 50, dimendion);
                 clients.add(client);
                 client.start();
@@ -45,8 +43,6 @@ public class Board extends JPanel implements ActionListener
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                JFrame fr = new JFrame();
-                fr.setSize(680, 640);
                 Client client = new Client("noSmoker", RANDOM.nextInt(10) * 50, dimendion);
                 clients.add(client);
                 client.start();
@@ -57,8 +53,6 @@ public class Board extends JPanel implements ActionListener
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                JFrame fr = new JFrame();
-                fr.setSize(680, 640);
                 Client client = new Client(((RANDOM.nextInt(50) % 2 == 0) ? "smoker" : "noSmoker"), RANDOM.nextInt(10) * 50, dimendion);
                 clients.add(client);
                 client.start();
@@ -73,9 +67,27 @@ public class Board extends JPanel implements ActionListener
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        for (Client client : clients)
+        ImageIcon barIcon = new ImageIcon(getClass().getClassLoader().getResource("bar.png"));
+        barIcon.paintIcon(this, g, (int) (dimendion.getWidth() - 250), 100);
+//        Iterator<Client> iterator = clients.iterator();
+//        while (iterator.hasNext())
+//        {
+//            Client client = iterator.next();
+//            if (client.isFinished()) {
+//                iterator.remove();
+//                continue;
+//            }
+//            client.getImage().paintIcon(this, g, client.getX(), client.getY());
+//        }
+        for (int i = 0; i< clients.size();)
         {
-            client.getImage().paintIcon(this, g, client.getX(), client.getY());
+            if (clients.get(i).isFinished()) {
+//              iterator.remove();
+                clients.remove(i);
+              continue;
+            }
+            clients.get(i).getImage().paintIcon(this, g, clients.get(i).getX(), clients.get(i).getY());
+            i++;
         }
         tm.start();
     }

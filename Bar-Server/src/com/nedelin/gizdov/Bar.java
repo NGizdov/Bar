@@ -1,3 +1,4 @@
+package com.nedelin.gizdov;
 import java.io.IOException;
 
 public class Bar extends Thread
